@@ -1,0 +1,137 @@
+---
+title: "Crna Gora COVID-19"
+author: "W"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    social: menu
+    source_code: embed
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(plotly)
+library(plyr)
+library(flexdashboard)
+library(tidyverse)
+library(leaflet)
+library(stringr)
+library(sf)
+library(here)
+library(widgetframe)
+library(tidyr)
+library(DT)
+
+mne <- read.csv("/Users/Dovla/Desktop/covidMNE2003.csv")
+```
+
+
+
+
+Podaci JIZCG
+=======================================================================
+
+Row
+-----------------------------------------------------------------------
+
+### Samoizolacija
+
+```{r}
+articles <- 6356
+valueBox(articles, icon = "fa-home", color = "success")
+```
+
+### COVID-19 slucajevi
+
+```{r}
+comments <- 52
+valueBox(comments, icon = "fa-notes-medical", color = "warning")
+```
+
+### Umrli
+
+```{r}
+spam <- 1
+valueBox(spam, 
+         icon = "fa-battery-empty",
+         color = "danger")
+```
+
+
+Row
+-----------------------------------------------------------------------
+
+### Evolucija COVID-19 slucajeva 
+
+```{r}
+
+mne <- read.csv("/Users/Dovla/Desktop/covidMNE2003.csv")
+mne$InfectionRate1 <- as.numeric(levels(mne$InfectionRate))[mne$InfectionRate]
+myvars <- c("Day","Infected", "Tested")#, "UnderWatch")
+mne1 <- mne[myvars]
+#mne1$UnderWatch <- mne1$UnderWatch/10
+names(mne1) <- c("Day","covid-19", "Testirano")#, "Izolacija / 10")
+mne2 <- mne1 %>%
+  pivot_longer(-Day, names_to = "Legenda", values_to = "count")
+
+p11 <- ggplot(mne2, aes(x=Day, y=count,group = Legenda)) + geom_line(aes(linetype=Legenda)) + geom_point() +
+    labs(x = "Proslo dana od 09/03/2020 tj prvog dana izvjestavanja o CG", y = "") 
+#p11 <- ggplot(mne2, aes(x=Day, y=count, col=series)) + geom_line() + geom_point()
+ggplotly(p11)
+
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Stopa rasta novih COVID-19 slucajeva
+
+```{r}
+p2 <- ggplot(data=mne, aes(x=Day, y=InfectionRate1*100, group=1)) + geom_line(linetype = "dashed", colour="red") +
+  geom_point() +
+  labs(x = "Proslo dana od 09/03/2020 tj prvog dana izvjestavanja o CG", y = "Stopa u %") 
+
+ggplotly(p2)
+
+```
+
+
+### Novi COVID-19 slucajevi
+
+```{r}
+p3 <- ggplot(data=mne, aes(x=Day, y=InfectedNew)) + geom_bar(stat="identity",color="red", fill="white") +
+  labs(x = "Proslo dana od 09/03/2020 tj prvog dana izvjestavanja o CG", y = "Novih slucajeva") 
+
+ggplotly(p3)
+```
+
+Spisak i mapa izolovanih
+=======================================================================
+
+### Mapa
+
+```{r,echo=FALSE, warning=FALSE}
+mapa <- read.csv("/Users/Dovla/Desktop/ime3.csv")
+
+m <- leaflet() %>%
+  addTiles(urlTemplate = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png') 
+
+#m %>%
+#  frameWidget()
+
+leaflet(data = mapa) %>%
+  addTiles() %>%
+  addMarkers(clusterOptions = markerClusterOptions())  #%>%  frameWidget()
+```
+
+### Spisak
+
+```{r}
+mapa1 <- read.csv("/Users/Dovla/Desktop/ime4.csv")
+
+mapa1 %>% 
+  dplyr::select(Ime = Ime, Datum = Datum, Grad = Grad, Adresa = Adresa) %>%
+  DT::datatable(rownames = FALSE,
+            options = list(searchHighlight = TRUE, 
+                           pageLength = 20), filter = 'top')
+```
