@@ -1,5 +1,6 @@
 ---
 title: "Crna Gora COVID-19"
+featuredImage: "Users/Dovla/Desktop/img.png"
 author: "W"
 output: 
   flexdashboard::flex_dashboard:
