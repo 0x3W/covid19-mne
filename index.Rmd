@@ -7,7 +7,6 @@ output:
     orientation: rows
     social: menu
     source_code: embed
-runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
@@ -26,18 +25,6 @@ library(DT)
 
 mne <- read.csv("/Users/Dovla/Desktop/covidMNE2003.csv")
 ```
-
-
-Podaci JIZCG
-=======================================================================
-
-```{r}
-library(shinySIR)
-
-run_shiny(model = "SIR")
-
-```
-
 
 Mapa oboljelih
 =======================================================================
