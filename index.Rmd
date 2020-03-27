@@ -7,6 +7,7 @@ output:
     orientation: rows
     social: menu
     source_code: embed
+runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
@@ -26,6 +27,18 @@ library(DT)
 mne <- read.csv("/Users/Dovla/Desktop/covidMNE2003.csv")
 ```
 
+
+Podaci JIZCG
+=======================================================================
+
+```{r}
+library(shinySIR)
+
+run_shiny(model = "SIR")
+
+```
+
+
 Mapa oboljelih
 =======================================================================
 
@@ -42,7 +55,7 @@ valueBox(articles, icon = "fa-home", color = "success")
 ### COVID-19 slucajevi
 
 ```{r}
-comments <- 67
+comments <- 69
 valueBox(comments, icon = "fa-notes-medical", color = "warning")
 ```
 
@@ -71,7 +84,6 @@ leaflet(data = mapa) %>%
   addMarkers(clusterOptions = markerClusterOptions())  #%>%  frameWidget()
 ```
 
-
 Podaci JIZCG
 =======================================================================
 
@@ -88,7 +100,7 @@ valueBox(articles, icon = "fa-home", color = "success")
 ### COVID-19 slucajevi
 
 ```{r}
-comments <- 67
+comments <- 69
 valueBox(comments, icon = "fa-notes-medical", color = "warning")
 ```
 
@@ -146,32 +158,3 @@ p3 <- ggplot(data=mne, aes(x=Day, y=InfectedNew)) + geom_bar(stat="identity",col
   labs(x = "Proslo dana od 09/03/2020 tj prvog dana izvjestavanja o CG", y = "Novih slucajeva") 
 ggplotly(p3)
 ```
-
-
-Spisak i mapa izolovanih
-=======================================================================
-
-### Mapa
-
-```{r,echo=FALSE, warning=FALSE}
-mapa1 <- read.csv("/Users/Dovla/Desktop/ime3.csv")
-m <- leaflet() %>%
-  addTiles(urlTemplate = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png') 
-#m %>%
-#  frameWidget()
-leaflet(data = mapa1) %>%
-  addTiles() %>%
-  addMarkers(clusterOptions = markerClusterOptions())  #%>%  frameWidget()
-```
-
-### Spisak
-
-```{r}
-mapa1 <- read.csv("/Users/Dovla/Desktop/ime4.csv")
-mapa1 %>% 
-  dplyr::select(Ime = Ime, Datum = Datum, Grad = Grad, Adresa = Adresa) %>%
-  DT::datatable(rownames = FALSE,
-            options = list(searchHighlight = TRUE, 
-                           pageLength = 20), filter = 'top')
-```
-
