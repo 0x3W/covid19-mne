@@ -23,7 +23,7 @@ library(widgetframe)
 library(tidyr)
 library(DT)
 
-mne <- read.csv("/Users/Dovla/Desktop/covidMNE2003.csv")
+mne <- read.csv("/Users/Dovla/Desktop/covidMNE2703.csv")
 ```
 
 Mapa oboljelih
@@ -35,14 +35,14 @@ Row
 ### Samoizolacija
 
 ```{r}
-articles <- 6356
+articles <- 6278
 valueBox(articles, icon = "fa-home", color = "success")
 ```
 
 ### COVID-19 slucajevi
 
 ```{r}
-comments <- 69
+comments <- 82
 valueBox(comments, icon = "fa-notes-medical", color = "warning")
 ```
 
@@ -80,14 +80,14 @@ Row
 ### Samoizolacija
 
 ```{r}
-articles <- 6356
+articles <- 6278
 valueBox(articles, icon = "fa-home", color = "success")
 ```
 
 ### COVID-19 slucajevi
 
 ```{r}
-comments <- 69
+comments <- 82
 valueBox(comments, icon = "fa-notes-medical", color = "warning")
 ```
 
@@ -108,7 +108,7 @@ Row
 
 ```{r}
 
-mne <- read.csv("/Users/Dovla/Desktop/covidMNE2003.csv")
+mne <- read.csv("/Users/Dovla/Desktop/covidMNE2703.csv")
 mne$InfectionRate1 <- as.numeric(levels(mne$InfectionRate))[mne$InfectionRate]
 myvars <- c("Day","Infected", "Tested")#, "UnderWatch")
 mne1 <- mne[myvars]
