@@ -71,7 +71,6 @@ m <- leaflet() %>%
 leaflet(data = mapa) %>%
   addTiles() %>%
   addMarkers(clusterOptions = markerClusterOptions())  #%>%  frameWidget()
-# <iframe width="560" height="315" src="https://praeconium.shinyapps.io/myapp/"></iframe>
 ```
 
 ### Novi COVID-19 slucajevi
@@ -161,10 +160,9 @@ ggplotly(p3)
 
 Test
 =======================================================================
-
-
-
-```{r, echo=FALSE}
+```{r,fig.width=11,fig.height=11}
 htmltools::includeHTML("https://praeconium.shinyapps.io/myapp/")
 ```
+
+
 
