@@ -4,9 +4,11 @@ featuredImage: "Users/Dovla/Desktop/img.png"
 author: "W"
 output: 
   flexdashboard::flex_dashboard:
+    theme: cosmo
     orientation: rows
     social: menu
     source_code: embed
+
 ---
 
 ```{r setup, include=FALSE}
@@ -42,7 +44,7 @@ valueBox(articles, icon = "fa-home", color = "success")
 ### COVID-19 slucajevi
 
 ```{r}
-comments <- 82
+comments <- 84
 valueBox(comments, icon = "fa-notes-medical", color = "warning")
 ```
 
@@ -55,12 +57,12 @@ valueBox(spam,
          color = "danger")
 ```
 
-Row
+Row 
 -----------------------------------------------------------------------
 
 ### Mapa
 
-```{r,echo=FALSE, warning=FALSE}
+```{r,fig.width = 12, echo=FALSE, warning=FALSE}
 mapa <- na.omit(read.csv("/Users/Dovla/Desktop/grad.csv"))
 m <- leaflet() %>%
   addTiles(urlTemplate = 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png') 
@@ -69,37 +71,20 @@ m <- leaflet() %>%
 leaflet(data = mapa) %>%
   addTiles() %>%
   addMarkers(clusterOptions = markerClusterOptions())  #%>%  frameWidget()
+# <iframe width="560" height="315" src="https://praeconium.shinyapps.io/myapp/"></iframe>
+```
+
+### Novi COVID-19 slucajevi
+
+```{r}
+mne22 <- subset(mne[mne$InfectedNew>0,])
+p3 <- ggplot(data=mne22, aes(x=Day, y=InfectedNew)) + geom_bar(stat="identity",color="red", fill="white") +
+  labs(x="Dana od 9/3 tj epidemije", y = "Novih slucajeva") + coord_flip()
+ggplotly(p3) 
 ```
 
 Podaci JIZCG
 =======================================================================
-
-Row
------------------------------------------------------------------------
-
-### Samoizolacija
-
-```{r}
-articles <- 6278
-valueBox(articles, icon = "fa-home", color = "success")
-```
-
-### COVID-19 slucajevi
-
-```{r}
-comments <- 82
-valueBox(comments, icon = "fa-notes-medical", color = "warning")
-```
-
-### Umrli
-
-```{r}
-spam <- 1
-valueBox(spam, 
-         icon = "fa-battery-empty",
-         color = "danger")
-```
-
 
 Row
 -----------------------------------------------------------------------
@@ -124,6 +109,34 @@ ggplotly(p11)
 
 ```
 
+### Konts
+
+```{r,echo=FALSE, warning=FALSE}
+library(igraph)
+library(sna)
+library(GGally)
+
+gra <- read.csv("/Users/Dovla/Desktop/gra.csv")
+graC <- read.csv("/Users/Dovla/Desktop/nodCol.csv")
+g1 <- graph.data.frame(gra, directed=FALSE)
+V(g1)$color <- "red"
+V(g1)[gra$e]$color = "green"
+
+
+#plot(g1, vertex.size = 10, edge.size=0.1, edge.color = "black", lty = 0, arrow.mode=3, arrow.size = 3, main="MNE covid19 clusters 29/03/2020")
+
+#library(visNetwork)
+#visIgraph(g1)
+
+g2 <- ggnet2(g1,label = TRUE, label.size = 3, label.color="black",layout.par = list(cell.jitter = 0.75), 
+             size = as.character(graC$s), size.palette = c("lar" = 8, "sma" = 3),
+             shape = as.character(graC$s),
+             node.color = c(rep("red",22),rep("darkgreen",62)),
+             legend.size = 5)
+
+ggplotly(g2)
+```
+
 Row
 -----------------------------------------------------------------------
 
@@ -145,3 +158,13 @@ p3 <- ggplot(data=mne, aes(x=Day, y=InfectedNew)) + geom_bar(stat="identity",col
   labs(x = "Proslo dana od 09/03/2020 tj prvog dana izvjestavanja o CG", y = "Novih slucajeva") 
 ggplotly(p3)
 ```
+
+Test
+=======================================================================
+
+
+
+```{r, echo=FALSE}
+htmltools::includeHTML("https://praeconium.shinyapps.io/myapp/")
+```
+
