@@ -1,4 +1,4 @@
-ReadMe
+About
 =======================================================================
 
 I study data, risk and quantiative approaches in various domains including bioinformatics and digital epidemiology. Given current situation it felt natural to visualize and track global/Montenegro statistics, implement basic SIR models, do tweeter analysis and little bit more. Hopefully its not too bad :)
