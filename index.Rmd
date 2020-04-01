@@ -42,7 +42,7 @@ valueBox(articles, icon = "fa-home", color = "success")
 ### COVID-19 slucajevi
 
 ```{r}
-comments <- 120
+comments <- 123
 valueBox(comments, icon = "fa-notes-medical", color = "warning")
 ```
 
@@ -61,8 +61,10 @@ Row
 ### Mapa
 
 ```{r,fig.width = 12, echo=FALSE, warning=FALSE}
-gra <- data.frame("gr"=c("Podgorica","Tuzi","Ulcinj","Andrijevica","Bar","Budva","Herceg Novi","Danilovgrad","Tivat","Bijelo Polje","Niksic"),"nr" = c(49,33,8,7,10,4,4,1,2,1,1))
-b <-c ()
+#gra <- data.frame("gr"=c("Podgorica","Tuzi","Ulcinj","Andrijevica","Bar","Budva","Herceg Novi","Danilovgrad","Tivat","Bijelo Polje","Niksic"),"nr" = c(49,33,8,7,10,4,4,1,2,1,1))
+gra <- read.csv('/Users/Dovla/Desktop/covid19-mne/tweetStatus.csv')
+
+b <-c()
 for(i in 1:nrow(gra)) {
   b <- c(b,rep(paste0(gra$gr[i]),gra$nr[i]))
 }
