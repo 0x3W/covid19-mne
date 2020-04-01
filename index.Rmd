@@ -61,7 +61,7 @@ Row
 ### Mapa
 
 ```{r,fig.width = 12, echo=FALSE, warning=FALSE}
-gra <- data.frame("gr"=c("Tuzi","Podgorica","Ulcinj","Andrijevica","Bar","Budva","Herceg Novi","Danilovgrad","Tivat","Bijelo Polje"),"nr" = c(33,39,8,7,10,4,4,1,2,1))
+gra <- data.frame("gr"=c("Podgorica","Tuzi","Ulcinj","Andrijevica","Bar","Budva","Herceg Novi","Danilovgrad","Tivat","Bijelo Polje","Niksic"),"nr" = c(49,33,8,7,10,4,4,1,2,1,1))
 b <-c ()
 for(i in 1:nrow(gra)) {
   b <- c(b,rep(paste0(gra$gr[i]),gra$nr[i]))
