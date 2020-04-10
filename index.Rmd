@@ -35,14 +35,14 @@ Row
 ### Samoizolacija
 
 ```{r}
-articles <- 6375
+articles <- 7398
 valueBox(articles, icon = "fa-home", color = "success")
 ```
 
 ### COVID-19 slucajevi
 
 ```{r}
-comments <- 233
+comments <- 252
 valueBox(comments, icon = "fa-notes-medical", color = "warning")
 ```
 

@@ -12,10 +12,7 @@ last10 <- get_timeline("@ijzcg", n= 10)
 pos <- grepl("Podgorica|Ulcinj|Herceg Novi", last10$text)
 for (i in 1:nrow(last10)){
   if (pos[i] == TRUE){
-    sink("/Users/Dovla/Desktop/lastTweet1.txt")
-    cat(last10$text[i])
-    sink()
-    break
+      break
   }
 }
 cat(" ")
@@ -35,7 +32,7 @@ if (ae1 < 1){
   writeLines(last10$text[i],'/Users/Dovla/Desktop/lastTweet.txt')
   writeLines(last10$text[i],'/Users/Dovla/Desktop/currentTweet.txt')
   st <- gsub("\n", ", ", last10$text[i])
-  st1 <- substring(st, 80)
+  st1 <- substring(st, 103)
   st11 <- unlist(strsplit(st1,", "))
   
   substrRight <- function(x, n){
@@ -46,10 +43,10 @@ if (ae1 < 1){
   
   for (i in 1:length(st11)){
     if (i < 4 ){
-      a <- c(a,as.numeric(substrRight(st11[i], 2)))
+      a <- c(a,as.numeric(substrRight(st11[i], 3)))
     }
     if (i > 3){
-      b <- c(b,as.numeric(substrRight(st11[i], 1)))
+      b <- c(b,as.numeric(substrRight(st11[i], 2)))
     }
   }
   d <- c(a,b)
