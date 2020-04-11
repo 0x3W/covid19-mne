@@ -42,7 +42,7 @@ valueBox(articles, icon = "fa-home", color = "success")
 ### COVID-19 slucajevi
 
 ```{r}
-comments <- 252
+comments <- 262
 valueBox(comments, icon = "fa-notes-medical", color = "warning")
 ```
 
